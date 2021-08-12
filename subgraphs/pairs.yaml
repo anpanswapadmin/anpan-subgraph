@@ -1,0 +1,34 @@
+specVersion: 0.0.2
+description: AnpanSwap is a decentralized protocol for automated token exchange on Binance Smart Chain.
+repository: https://github.com/anpanswap
+schema:
+  file: ./pairs.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Factory
+    network: bsc
+    source:
+      address: '0xEb4D933D56E5deF7B24F543766dD398f1DaFEEd5'
+      abi: Factory
+      startBlock: 9941783
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ../src/pairs/factory.ts
+      entities:
+        - Factory
+        - Pair
+        - Token
+      abis:
+        - name: factory
+          file: ../abis/factory.json
+        - name: BEP20
+          file: ../abis/BEP20.json
+        - name: BEP20NameBytes
+          file: ../abis/BEP20NameBytes.json
+        - name: BEP20SymbolBytes
+          file: ../abis/BEP20SymbolBytes.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handlePairCreated

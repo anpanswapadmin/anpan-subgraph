@@ -1,0 +1,61 @@
+specVersion: 0.0.2
+description: Anpans Trading Competition V1
+repository: https://github.com/anpanswap
+schema:
+  file: ./trading.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: TradingCompetitionV1
+    network: bsc
+    source:
+      address: '0xEa763D6623fC9cef90332A62C0610240aD3A76aE'
+      abi: TradingCompetitionV1
+      startBlock: 9970112
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ../src/trading/competition.ts
+      entities:
+        - Bundle
+        - Competition
+        - Team
+        - User
+      abis:
+        - name: TradingCompetitionV1
+          file: ../abis/TradingCompetitionV1.json
+        - name: Factory
+          file: ../abis/factory.json
+        - name: Pair
+          file: ../abis/pair.json
+      blockHandlers:
+        - handler: handleBlock
+      eventHandlers:
+        - event: UserRegister(address,uint256)
+          handler: handleUserRegister
+        - event: NewCompetitionStatus(uint8)
+          handler: handleNewCompetitionStatus
+templates:
+  - kind: ethereum/contract
+    name: Pair
+    network: bsc
+    source:
+      abi: Pair
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ../src/trading/pair.ts
+      entities:
+        - Bundle
+        - Competition
+        - Team
+        - User
+      abis:
+        - name: Factory
+          file: ../abis/factory.json
+        - name: Pair
+          file: ../abis/pair.json
+      eventHandlers:
+        - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
+          handler: handleSwap
