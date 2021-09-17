@@ -10,13 +10,6 @@ Currently, there are multiple subgraphs, but additional subgraphs can be added t
 
 3. **[Exchange](https://thegraph.com/explorer/subgraph/anpanswap/exchange)**: Tracks all AnpanSwap Exchange data with price, volume, liquidity, ...
 
-4. **[Profile](https://thegraph.com/explorer/subgraph/anpanswap/profile)**: Tracks all AnpanSwap Profile with teams, users, points and campaign.
-
-5. **[Timelock](https://thegraph.com/explorer/subgraph/anpanswap/timelock)**: Tracks all timelock transactions queued, executed, and cancelled.
-
-6. **[Trading Competition v1](https://thegraph.com/explorer/subgraph/anpanswap/trading-competition-v1)**: Tracks all metrics for the Easter Battle (April 07—14, 2021).
-
-
 ## To setup and deploy
 
 For any of the subgraph: `blocks` as `[subgraph]`
